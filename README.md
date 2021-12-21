@@ -27,7 +27,7 @@ The basic concept of this method is:
 ***
 # Some useful link that I used to build this repository:
 
-* https://github.com/boyac/pyOptionPricing.git    This one is for the calculation of IV
+* https://github.com/boyac/pyOptionPricing.git   https://github.com/khrapovs/impvol/blob/master/examples/Implied_Volatility_Bisection.ipynb   This two are for the calculation of IV
 * https://github.com/pfmoro/Black-Scholes-Greeks/blob/master/BSG.py    This one is for the calculation of Delta
 * https://github.com/casprwang/sse-option-crawler  This is the crawler to get information of DCE.
 
