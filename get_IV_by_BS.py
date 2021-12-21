@@ -112,12 +112,17 @@ print(Delta(S,K,r,v,T,Type='Call'))
 
 ##Step 3: Skewness
 
+def days_interval(date1, date2):
+    d1 = datetime.datetime.strptime(str(date1), "%Y%m%d")
+    d2 = datetime.datetime.strptime(str(date2), "%Y%m%d")
+    days = abs((d1 - d2).days)
+    return float(days) /365.0
 
 #initialize parametres using data from DCE
 #25 Delta Call
 S=2693
 K=2780
-T=34/242
+T=days_interval(20211221,20220212)#34/242
 r=CNY_forward/CNY_spot-1
 C=15
 cp ='C'
@@ -129,7 +134,7 @@ print('25 Delta Call Implied volatility: %.4f' % Delta25Call_v)
 #25 Delta Put
 S=2693
 K=2620
-T=34/242
+T=days_interval(20211221,20220212)#34/242
 r=CNY_forward/CNY_spot-1
 C=16.5
 cp ='P'
