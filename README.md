@@ -31,7 +31,7 @@ The basic concept of this method is:
 * https://github.com/pfmoro/Black-Scholes-Greeks/blob/master/BSG.py    This one is for the calculation of Delta
 * https://github.com/casprwang/sse-option-crawler  This is the crawler to get information of DCE.
 
-Some other Data source you might think helpful:
+Some other Data sources you might think helpful:
 
     1. Realtime quote data obtained from CBOE.
     
