@@ -8,6 +8,7 @@ from math import exp, log, sqrt, erf
 import numpy as np
 import matplotlib.pylab as plt
 from scipy.stats import norm
+import datetime
 
 
 ##Step 1: calculate the implied volatility using B-S Formula
@@ -88,7 +89,7 @@ def impvol(S, K, T, r, C, cp, tol = 1e-5, fcount = 1e4):
 
 #v: implied volatility
 v = impvol(S, K, T, r, C, cp)
-print('Implied volatility: %.4f' % v)
+print('At the money Implied volatility: %.4f' % v)
 
 
 
@@ -106,46 +107,57 @@ def Delta(S, K, r, v, T,Type="Call"):
   return myDelta
 
 #call:Type='Call' put: Type='Put'
-print(Delta(S,K,r,v,T,Type='Call'))
+print('The Delta of closing price is '+ str(Delta(S,K,r,v,T,Type='Call')))
 
 
 
 ##Step 3: Skewness
 
+
+#initialize parametres using data from DCE
+#计算剩余期限
 def days_interval(date1, date2):
     d1 = datetime.datetime.strptime(str(date1), "%Y%m%d")
     d2 = datetime.datetime.strptime(str(date2), "%Y%m%d")
     days = abs((d1 - d2).days)
     return float(days) /365.0
 
-#initialize parametres using data from DCE
+#date2是交割月份前一个月的第五个交易日
+    
 #25 Delta Call
 S=2693
-K=2780
-T=days_interval(20211221,20220212)#34/242
+K_25c=2780
+T=days_interval(20211221,20220212)#以202203到期期权为例
 r=CNY_forward/CNY_spot-1
-C=15
+C_call=15
 cp ='C'
 
-Delta25Call_v=impvol(2693, 2780, 34/242, 0.00787, 15, 'C')
+Delta25Call_v=impvol(2693, K_25c, T, 0.00787, C_call, 'C')
 print('25 Delta Call Implied volatility: %.4f' % Delta25Call_v)
 
 
 #25 Delta Put
 S=2693
-K=2620
-T=days_interval(20211221,20220212)#34/242
+K_25p=2620
+T=days_interval(20211221,20220212)
 r=CNY_forward/CNY_spot-1
-C=16.5
+C_put=16.5
 cp ='P'
 
-Delta25Put_v=impvol(2693, 2620, 34/242, 0.00787, 16.5, 'P')
+Delta25Put_v=impvol(2693, K_25p, T, 0.00787, C_put, 'P')
 print('25 Delta Put Implied volatility: %.4f' % Delta25Put_v)
 
 
 #Skewness
 Skewness=Delta25Call_v-Delta25Put_v
 print('Skewness='+ str(Skewness))
+
+
+
+
+
+
+
 
 
 
