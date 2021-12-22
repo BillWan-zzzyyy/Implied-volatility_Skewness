@@ -24,6 +24,11 @@ C - option price
 cp - call/put flag
 sig: volatililty annualized
 '''
+
+#目前取得是3月期权的数 还未更新为1月的
+
+
+
 #initialize parametres using data from DCE
 S=2693
 K=2700
@@ -86,7 +91,7 @@ def impvol(S, K, T, r, C, cp, tol = 1e-5, fcount = 1e4):
 #Test code:
 #S, K, T, r, C, cp = 164., 165., 23./242, 0.0521, 5.78, 'C'
 
-
+#At the money implied volatility
 #v: implied volatility
 v = impvol(S, K, T, r, C, cp)
 print('At the money Implied volatility: %.4f' % v)
@@ -127,7 +132,7 @@ def days_interval(date1, date2):
 #25 Delta Call
 S=2693
 K_25c=2780
-T=days_interval(20211221,20220212)#以202203到期期权为例
+T=days_interval(20211217,20220212)#以202203到期期权为例
 r=CNY_forward/CNY_spot-1
 C_call=15
 cp ='C'
@@ -139,7 +144,7 @@ print('25 Delta Call Implied volatility: %.4f' % Delta25Call_v)
 #25 Delta Put
 S=2693
 K_25p=2620
-T=days_interval(20211221,20220212)
+T=days_interval(20211217,20220212)
 r=CNY_forward/CNY_spot-1
 C_put=16.5
 cp ='P'
@@ -154,12 +159,72 @@ print('Skewness='+ str(Skewness))
 
 
 
+#test code for 0823-0901
+#数据源为3月到期 还未修改
+
+#25 Delta Call
+
+S_test=[2550,2527,2521,2516,2496,2503,2507,2483]
+
+K_25_c=[2680,2700,2700,2680,2660,2660,2660,2640]
+K_25_p=[2380,2380,2380,2380,2380,2380,2380,2360]
+T=[days_interval(20210823, 20220212),days_interval(20210824, 20220212),
+   days_interval(20210825, 20220212),days_interval(20210826, 20220212),
+   days_interval(20210827, 20220212),days_interval(20210830,20220212),
+   days_interval(20210831, 20220212),days_interval(20210901, 20220212)]
+
+r=6.5/6.39-1
+C_call=[36,36.5,30,32,33.5,33.5,34,30]
+C_put=[36,32,31.5,32,30,34.5,30,26.5]
+test_skewness_picture=[]
+iv_call25=[]
+iv_put25=[]
+for i in range(0,8):
+    
+    Delta25Call_v_test=impvol(S_test[i], K_25_c[i], T[i],r, C_call[i], 'C')
+    Delta25Put_v_test=impvol(S_test[i], K_25_p[i], T[i],r, C_put[i], 'P')
+    
+    iv_call25.append(Delta25Call_v_test)
+    iv_put25.append(Delta25Put_v_test)
+    
+    skewness_test=Delta25Call_v_test-Delta25Put_v_test
+    test_skewness_picture.append(skewness_test)
+    
+date=['0823','0824','0825','0826','0827','0830','0831','0901']
+plt.subplot(3,1,1)
+plt.plot(date,test_skewness_picture)
+plt.title('Skewness vs date')
+plt.show()
+
+plt.subplot(312)
+plt.plot(date,iv_call25)
+plt.title('Delta25 Implied volatility of Call')
+plt.show()
+
+plt.subplot(313)
+plt.title('Delta25 Implied volatility of Put')
+plt.plot(date,iv_put25)
+plt.show()
+
+        
+        
+       
+        
+    
+    
+
+'''Delta25Call_v=impvol(2693, K_25c, T, 0.00787, C_call, 'C')
+print('25 Delta Call Implied volatility: %.4f' % Delta25Call_v)
 
 
 
 
+print('25 Delta Put Implied volatility: %.4f' % Delta25Put_v)
 
 
+#Skewness
+Skewness=Delta25Call_v-Delta25Put_v
+print('Skewness='+ str(Skewness))'''
 
 
 
