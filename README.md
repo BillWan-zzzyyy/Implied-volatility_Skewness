@@ -24,12 +24,7 @@ The basic concept of this method is:
 4. To sum up, you should first use the Dalian_Option_Crawler to get the data. Then you change the parameters in get_IV_by_BS to calculate the implied volatility and skewness. You may realize that this method does not develop automatic way to update parameters. I will try to optimize this feature asap.
 
 
-***
-# Some useful link that I used to build this repository:
 
-* https://github.com/boyac/pyOptionPricing.git   https://github.com/khrapovs/impvol/blob/master/examples/Implied_Volatility_Bisection.ipynb   This two are for the calculation of IV
-* https://github.com/pfmoro/Black-Scholes-Greeks/blob/master/BSG.py    This one is for the calculation of Delta
-* https://github.com/casprwang/sse-option-crawler  This is the crawler to get information of DCE.
 
 Some other Data sources you might think helpful:
 
