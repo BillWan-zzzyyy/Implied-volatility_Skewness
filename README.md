@@ -16,10 +16,9 @@ The basic concept of this method is:
 
 ## There are several important tips about how to use files in this repository:
 
-1. baw_call and baw_put are used to calculate the implied volatility of a series of corn options(DCE) in a specific day.
-
-
-
+1. baw_call.py and baw_put.py are used to calculate the implied volatility of a series of corn options(DCE) in a specific day.
+2. skewness.py is uesd to calculate skewness in a specific day.
+3. If you want to see the implied volatility for a longer time period, you can then use the corn_option_call3-9.py and corn_option_put3-9.py. You can also change the parameters to get different results.
 
 
 
