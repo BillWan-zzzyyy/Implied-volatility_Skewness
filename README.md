@@ -1,5 +1,5 @@
 # Implied-volatility & Skewness
-## This repository is built for the purpose of getting IV of option and its skewness.
+## This repository is built for the purpose of getting IV of option（DCE） and its skewness.
 The whole repository is based on Python.
 
 ***
@@ -8,20 +8,17 @@ The whole repository is based on Python.
 
 The basic concept of this method is:
 
-        1.用bs算的at the money Implied vol （当天期货收盘价拿下来找到strike price离收盘价最近的那个期权）
+        1.用bs/baw算的at the money Implied vol （当天期货收盘价拿下来找到strike price离收盘价最近的那个期权）
 
-        2.用bs算出每天期权收盘价的delta
+        2.找到25 delta call和25delta put
 
-        3.找到25 delta call和25delta put
+        3.用找到的这两个call - put就是skewness
 
-        4.用第3步中找到的这两个call - put就是skewness
+## There are several important tips about how to use files in this repository:
 
-## There are several important tips about the files in this repository:
+dsa
 
-1. The primary file of this repository is get_IV_by_BS. You can run this python file to get the implied volatility, the value of Delta and skewness of a certain option.
-2. The data source which I used to get the information of options is the website of DCE. To get all the information automatically, I use the Python file Dalian_Option_Crawler. This crawler is the work of yuany3721. You can find the link of his original repository in the below links.
-3. Besides these two files, other files such as Greek_pfmoro are just for the purpose of displaying other methods to build B-S Formulas or calculate Greeks. I also uploaded another crawler which is designed to get details of SSE50.
-4. To sum up, you should first use the Dalian_Option_Crawler to get the data. Then you change the parameters in get_IV_by_BS to calculate the implied volatility and skewness. You may realize that this method does not develop automatic way to update parameters. I will try to optimize this feature asap.
+
 
 
 
