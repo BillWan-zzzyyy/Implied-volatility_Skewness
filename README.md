@@ -16,7 +16,7 @@ The basic concept of this method is:
 
 ## There are several important tips about how to use files in this repository:
 
-dsa
+1. baw_call and baw_put are used to calculate the implied volatility of a series of corn options(DCE) in a specific day.
 
 
 
