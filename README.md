@@ -26,17 +26,7 @@ The basic concept of this method is:
 
 
 
-Some other Data sources you might think helpful:
 
-    1. Realtime quote data obtained from CBOE.
-    
-    Update global variable g_csvfile in OptionSkew.py with the name of the file downloaded from CBOE that contains the option chain.
-    
-    http://www.cboe.com/delayedquote/quote-table-download
-    
-    2. A crawler for SSE50 Index Option
-    
-    https://github.com/casprwang/sse-option-crawler.git
 
 Other sources that might be helpful:
 
