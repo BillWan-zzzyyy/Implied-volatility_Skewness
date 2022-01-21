@@ -87,34 +87,6 @@ def bawPriceCall(S,K,sigma,T,r,q):
 
     
 
-
-def bawPricePut(S,K,sigma,T,r,q):
-        #Put价格计算
-    
-    v=sigma
-    [c,p]=bsmprice(S,K,sigma,T,r,q)
-    start = S
-    
-    func = lambda s: findSx(s, K, r, q, v, T, 'P')
-    data= opt.fmin(func, start,disp=False)
-    Sx=data[0]
-
-    d1 = (log(Sx/K) + (r - q + v ** 2 / 2)) / v / sqrt(T)
-    n = 2 * (r - q) / v ** 2
-    k = 2 * r / v ** 2 / (1 - exp(-r * T))
-    q1 = (1 - n - sqrt((n - 1) ** 2 + 4 * k)) / 2
-    A1 = -Sx * (1 - exp(-q * T) * norm.cdf(-d1)) / q1
-    if S > Sx:
-        ap = p + A1 * (S / Sx) ** q1
-    else:
-        ap = K - S
-    
-    #print('The price of the put option is ' + str(ap))
-    return ap
-    #return [ac,ap]
-
-
-
 def cal_Call_Iv(iv_upper=0.55, iv_lower=0.05):
     """通过二分逼近计算看涨期权隐含波动率"""
     
@@ -138,42 +110,12 @@ def cal_Call_Iv(iv_upper=0.55, iv_lower=0.05):
     return iv_Call
 
 
-def cal_Put_Iv(iv_upper=0.55, iv_lower=0.05):
-    """通过二分逼近计算看涨期权隐含波动率"""
-    
-    price_upper=bawPricePut(S,K,iv_upper,T,r,q)
-    price_lower=bawPricePut(S,K,iv_lower,T,r,q)
-        
-    for j in range(0,100): 
-        """计算中间值的iv并迭代"""
-        
-        iv_mid=(iv_upper+iv_lower)/2
-        price_mid=bawPricePut(S,K,iv_mid,T,r,q)    
-        
-        if realPrice_Put < price_mid:
-            iv_upper=iv_mid
-            
-        else:
-            iv_lower=iv_mid
-                       
-        iv_Put=iv_mid#以最后迭代的中间值作为最后结果
-            
-    return iv_Put
-
-
 
 S=2721
 #K=2680#要修改
 T=days_interval(20220118, 20220411)
 r=0.02
 q=0.02
-
-# realPrice_Call=40#要修改
-# realPrice_Put=35#要修改
-
-# print(cal_Call_Iv(iv_upper=0.55, iv_lower=0.05))
-# print(cal_Put_Iv(iv_upper=0.55, iv_lower=0.05))
-
 
 call_workbook=xlrd.open_workbook(r"C:\Users\22977\Desktop\工作\option\data\20220118_1642491018134_Daily.xls")
 call_table=call_workbook.sheet_by_name('日行情')
@@ -216,9 +158,7 @@ for i in range(0,len(K_list)):
     iv_call_value = cal_Call_Iv(iv_upper=0.55, iv_lower=0.05)
     iv_call.append(iv_call_value)
     
-    
-    
-    
+       
 plt.figure(figsize=(20,6))  
 plt.plot(K_list,iv_call)
 plt.title('20220118strike_price vs IV 2205 call')
