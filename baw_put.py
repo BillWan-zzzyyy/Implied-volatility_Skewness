@@ -68,33 +68,6 @@ def findSx(Sx,K,r,q,v,T,PutCall):
 
 
 
-def bawPriceCall(S,K,sigma,T,r,q):
-    """美式期权baw定价近似解法 S K为当日结算价"""
-    
-    v=sigma
-    [c,p]=bsmprice(S,K,sigma,T,r,q)
-    start = S
-    
-    #Call价格计算
-    func=lambda s:findSx(s, K, r, q, v, T, 'C')
-    data = opt.fmin(func, start,disp=False)
-    Sx=data[0]
-   
-    d1 = (log(Sx / K) + (r - q + v ** 2 / 2)) / v / sqrt(T)
-    n = 2 * (r - q) / v ** 2
-    k = 2 * r / v ** 2 / (1 - exp(-r * T))
-    q2 = (1 - n + sqrt((n - 1) ** 2 + 4 * k)) / 2
-    A2 = Sx * (1 - exp(-q * T) * norm.cdf(d1)) / q2
-    if S < Sx:
-        ac = c + A2 * (S / Sx) ** q2
-    else:
-        ac = S - K
-    #print('The price of the call option is ' + str(ac))
-    return ac
-
-    
-
-
 def bawPricePut(S,K,sigma,T,r,q):
         #Put价格计算
     
